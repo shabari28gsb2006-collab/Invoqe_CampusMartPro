@@ -1,0 +1,6 @@
+{
+  "name": "CampusMart Pro",
+  "description": "The premier campus marketplace for students. Shop laptops, gadgets, books, fashion, and dorm essentials with exclusive campus deals and seasonal themes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

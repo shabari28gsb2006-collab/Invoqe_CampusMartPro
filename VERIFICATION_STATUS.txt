@@ -1,0 +1,32 @@
+CampusMart Pro - Change and Verification Notes
+
+Changes in this revision
+- Kept client/ and server/ separated.
+- Fixed missing catalogProducts destructuring in Header, ProductListingScreen, ProductDetailScreen and WishlistScreen.
+- Search submission resets category to All so searches are not accidentally limited to the previous category.
+- Fixed minimum-rating filter logic and product-listing memo dependencies.
+- Added direct /seller/login and /admin/login pages; backend validates username/password from server/.env and issues signed role-specific tokens.
+- Added route guards for /seller and /admin and logout clears portal tokens.
+- Changed admin API protection to require a signed admin-role token; seller APIs require a signed seller-role token.
+- Added customer registration/login with bcrypt password hashes and signed tokens.
+- Customer profile fields sync to the customer API when signed in; guest profile, address, payment preference and seller settings persist locally for this demo.
+- Fixed admin settings Promise.all destructuring bug.
+- Fixed seed script path to client/src/data/mockData.ts.
+- Added auth endpoint rate limiting and production checks for demo credentials/session secrets.
+- Preserved the known working Node DNS resolver workaround for MongoDB SRV lookups.
+
+Verification performed in this environment
+- ZIP integrity will be checked after packaging.
+- TypeScript parser diagnostics were checked with the globally available compiler; no syntax diagnostics were found. Full type-check could not run because dependencies and their type declarations are not installed in this environment.
+- npm install timed out in this environment, so frontend/backend production builds and live API integration tests could not be completed here.
+
+Important limits
+- Do not treat this as fully production-certified. Online payments, email OTP delivery, some analytics/reviews/campaign features, and address/payment preference storage are not fully production integrations.
+- Keep real server/.env and client/.env.local files out of source control and never share MongoDB credentials.
+- For the internship demo, configure MongoDB, seed the catalogue once, and test registration, portal logins, search/filter, cart, profile save, product management and order creation locally before submission.
+
+Catalog display corrections in this revision
+- All visible customer-facing product rating values are formatted to one decimal place (for example, 4.6).
+- API catalogue hydration rounds rating numbers and supplies category-matched fallback images when a database product has an empty image URL or empty gallery.
+- The seed script rounds stored catalogue ratings and fills only missing database image URLs, without overwriting existing non-empty seller-uploaded product images.
+- Run `npm run seed` from the `server/` directory after backing up the database if you want the one-time database repair applied to existing records. The storefront fallback also works without running the seed.
